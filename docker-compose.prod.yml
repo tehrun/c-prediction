@@ -1,0 +1,35 @@
+# Production override for an Ubuntu VPS.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+services:
+  db:
+    restart: unless-stopped
+    ports: []
+  redis:
+    restart: unless-stopped
+    ports: []
+  backend:
+    restart: unless-stopped
+    env_file: .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers ${BACKEND_WORKERS:-2}
+    volumes: []
+    ports:
+      - "${BACKEND_BIND:-127.0.0.1:8000}:8000"
+  worker:
+    restart: unless-stopped
+    env_file: .env
+    volumes: []
+  beat:
+    restart: unless-stopped
+    env_file: .env
+    volumes: []
+  frontend:
+    restart: unless-stopped
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+    command: null
+    environment: []
+    volumes: []
+    ports:
+      - "${FRONTEND_BIND:-0.0.0.0:80}:80"
