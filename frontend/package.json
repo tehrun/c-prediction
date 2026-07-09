@@ -11,26 +11,26 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@tanstack/react-query": "latest",
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "lightweight-charts": "latest",
-    "tailwindcss": "latest"
+    "@tanstack/react-query": "^5.62.7",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11",
+    "typescript": "^5.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lightweight-charts": "^5.0.8",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
-    "@testing-library/react": "latest",
-    "@testing-library/jest-dom": "latest",
-    "@testing-library/user-event": "latest",
-    "vitest": "latest",
-    "jsdom": "latest",
-    "eslint": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "typescript-eslint": "latest",
-    "autoprefixer": "latest",
-    "postcss": "latest"
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.5.2",
+    "vitest": "^2.1.8",
+    "jsdom": "^25.0.1",
+    "eslint": "^9.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript-eslint": "^8.18.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49"
   }
 }
