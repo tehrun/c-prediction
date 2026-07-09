@@ -57,7 +57,7 @@ async def exchanges_health() -> dict[str, object]:
 
 @api.get("/exchanges", response_model=list[ExchangeOut])
 async def list_exchanges(session: AsyncSession = Depends(get_session)) -> list[Exchange]:
-    return (await session.execute(select(Exchange).order_by(Exchange.key))).scalars().all()
+    return list((await session.execute(select(Exchange).order_by(Exchange.key))).scalars().all())
 
 
 @api.get("/market/universe", response_model=list[MarketOut])
