@@ -1,0 +1,32 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext ts,tsx",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "latest",
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "lightweight-charts": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@testing-library/react": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/user-event": "latest",
+    "vitest": "latest",
+    "jsdom": "latest",
+    "eslint": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript-eslint": "latest",
+    "autoprefixer": "latest",
+    "postcss": "latest"
+  }
+}

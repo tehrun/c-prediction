@@ -1,0 +1,20 @@
+[project]
+name = "cryptopilot-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["fastapi>=0.115","uvicorn[standard]>=0.30","pydantic-settings>=2.4","sqlalchemy[asyncio]>=2.0","asyncpg>=0.29","alembic>=1.13","redis>=5","celery>=5.4","ccxt>=4.4","httpx>=0.27","tenacity>=8.5","python-json-logger>=2.0"]
+[project.optional-dependencies]
+dev = ["pytest>=8","pytest-asyncio>=0.23","ruff>=0.5","mypy>=1.10","aiosqlite>=0.20"]
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E","F","I","UP","B"]
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+strict = true
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
