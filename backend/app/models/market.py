@@ -1,5 +1,6 @@
 from datetime import UTC, datetime
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import (
     JSON,
@@ -78,7 +79,7 @@ class DataQualityEvent(Base):
     severity: Mapped[str] = mapped_column(String(16))
     event_type: Mapped[str] = mapped_column(String(64), index=True)
     message: Mapped[str] = mapped_column(Text)
-    event_metadata: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
+    event_metadata: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict)
     detected_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(UTC)
     )

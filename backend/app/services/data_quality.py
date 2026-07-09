@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models import Candle, Market
 
 
-async def data_health(session: AsyncSession, symbol: str | None = None) -> dict:
+async def data_health(session: AsyncSession, symbol: str | None = None) -> dict[str, object]:
     stmt = select(func.max(Candle.opened_at))
     if symbol:
         stmt = stmt.join(Market, Market.id == Candle.market_id).where(

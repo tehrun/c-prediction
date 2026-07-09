@@ -22,7 +22,7 @@ def create_app() -> FastAPI:
     app.include_router(api)
 
     @app.exception_handler(Exception)
-    async def unhandled(_: Request, exc: Exception):
+    async def unhandled(_: Request, exc: Exception) -> JSONResponse:
         return JSONResponse(
             status_code=500,
             content={"detail": "Internal server error", "type": exc.__class__.__name__},

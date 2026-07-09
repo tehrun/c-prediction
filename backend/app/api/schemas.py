@@ -1,12 +1,13 @@
 from datetime import datetime
 from decimal import Decimal
+from typing import Any
 
 from pydantic import BaseModel, Field
 
 
 class HealthResponse(BaseModel):
     status: str
-    details: dict = Field(default_factory=dict)
+    details: dict[str, Any] = Field(default_factory=dict)
 
 
 class ExchangeOut(BaseModel):

@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import desc, select, text
@@ -23,18 +24,18 @@ health = APIRouter(prefix="/health")
 
 
 @health.get("/live", response_model=HealthResponse)
-async def live():
+async def live() -> dict[str, object]:
     return {"status": "healthy", "details": {"app": "CryptoPilot"}}
 
 
 @health.get("/ready", response_model=HealthResponse)
-async def ready(session: AsyncSession = Depends(get_session)):
+async def ready(session: AsyncSession = Depends(get_session)) -> dict[str, object]:
     await session.execute(text("select 1"))
     return {"status": "healthy", "details": {"database": "healthy"}}
 
 
 @health.get("/data", response_model=HealthResponse)
-async def health_data(session: AsyncSession = Depends(get_session)):
+async def health_data(session: AsyncSession = Depends(get_session)) -> dict[str, object]:
     h = await data_health(session)
     return {
         "status": "degraded" if h["status"] in {"stale", "unavailable"} else "healthy",
@@ -43,8 +44,8 @@ async def health_data(session: AsyncSession = Depends(get_session)):
 
 
 @health.get("/exchanges", response_model=HealthResponse)
-async def exchanges_health():
-    details = {}
+async def exchanges_health() -> dict[str, object]:
+    details: dict[str, Any] = {}
     for key in ("kraken", "binance"):
         adapter = get_exchange_adapter(key)
         try:
@@ -55,14 +56,14 @@ async def exchanges_health():
 
 
 @api.get("/exchanges", response_model=list[ExchangeOut])
-async def list_exchanges(session: AsyncSession = Depends(get_session)):
+async def list_exchanges(session: AsyncSession = Depends(get_session)) -> list[Exchange]:
     return (await session.execute(select(Exchange).order_by(Exchange.key))).scalars().all()
 
 
 @api.get("/market/universe", response_model=list[MarketOut])
 async def universe(
     session: AsyncSession = Depends(get_session), settings: Settings = Depends(get_settings)
-):
+) -> list[dict[str, object]]:
     stmt = (
         select(Market, Exchange)
         .join(Exchange)
@@ -83,17 +84,19 @@ async def universe(
 
 
 @api.get("/market/data-health", response_model=DataHealthOut)
-async def all_health(session: AsyncSession = Depends(get_session)):
+async def all_health(session: AsyncSession = Depends(get_session)) -> dict[str, object]:
     return await data_health(session)
 
 
 @api.get("/market/data-health/{symbol}", response_model=DataHealthOut)
-async def symbol_health(symbol: str, session: AsyncSession = Depends(get_session)):
+async def symbol_health(
+    symbol: str, session: AsyncSession = Depends(get_session)
+) -> dict[str, object]:
     return await data_health(session, symbol)
 
 
 @api.get("/assets/{symbol}", response_model=AssetOut)
-async def get_asset(symbol: str, session: AsyncSession = Depends(get_session)):
+async def get_asset(symbol: str, session: AsyncSession = Depends(get_session)) -> Asset:
     asset = await session.scalar(select(Asset).where(Asset.symbol == symbol.upper()))
     if not asset:
         raise HTTPException(404, "Asset not found")
@@ -109,7 +112,7 @@ async def candles(
     end: datetime | None = None,
     limit: int = Query(500, ge=1, le=1000),
     session: AsyncSession = Depends(get_session),
-):
+) -> list[Candle]:
     stmt = (
         select(Candle)
         .join(Market)
