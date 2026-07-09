@@ -1,8 +1,21 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 from decimal import Decimal
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, JSON, Numeric, String, Text, UniqueConstraint
+
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    Text,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.db.base import Base, TimestampMixin
+
 
 class Exchange(TimestampMixin, Base):
     __tablename__ = "exchanges"
@@ -11,12 +24,14 @@ class Exchange(TimestampMixin, Base):
     name: Mapped[str] = mapped_column(String(128))
     enabled: Mapped[bool] = mapped_column(Boolean, default=True)
 
+
 class Asset(TimestampMixin, Base):
     __tablename__ = "assets"
     id: Mapped[int] = mapped_column(primary_key=True)
     symbol: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     name: Mapped[str] = mapped_column(String(128))
     active: Mapped[bool] = mapped_column(Boolean, default=True)
+
 
 class Market(TimestampMixin, Base):
     __tablename__ = "markets"
@@ -35,6 +50,7 @@ class Market(TimestampMixin, Base):
     exchange: Mapped[Exchange] = relationship()
     asset: Mapped[Asset] = relationship()
 
+
 class Candle(Base):
     __tablename__ = "candles"
     __table_args__ = (UniqueConstraint("exchange_id", "market_id", "timeframe", "opened_at"),)
@@ -49,7 +65,10 @@ class Candle(Base):
     close: Mapped[Decimal] = mapped_column(Numeric(38, 18))
     volume: Mapped[Decimal] = mapped_column(Numeric(38, 18))
     trade_count: Mapped[int | None] = mapped_column(Integer)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
+
 
 class DataQualityEvent(Base):
     __tablename__ = "data_quality_events"
@@ -60,8 +79,11 @@ class DataQualityEvent(Base):
     event_type: Mapped[str] = mapped_column(String(64), index=True)
     message: Mapped[str] = mapped_column(Text)
     event_metadata: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
-    detected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
+    detected_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
 
 class IngestionRun(Base):
     __tablename__ = "ingestion_runs"
@@ -69,7 +91,9 @@ class IngestionRun(Base):
     exchange_key: Mapped[str] = mapped_column(String(32), index=True)
     job_type: Mapped[str] = mapped_column(String(64))
     status: Mapped[str] = mapped_column(String(32), index=True)
-    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
+    started_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     records_processed: Mapped[int] = mapped_column(Integer, default=0)
     error_message: Mapped[str | None] = mapped_column(Text)

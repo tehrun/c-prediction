@@ -1,14 +1,21 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
+
 from app.exchanges.types import Candle, ExchangeMarket, ExchangeStatus, Ticker
+
+
 class ExchangeAdapter(ABC):
     key: str
+
     @abstractmethod
     async def load_markets(self) -> list[ExchangeMarket]: ...
     @abstractmethod
-    async def fetch_ohlcv(self, symbol: str, timeframe: str, since: datetime | None = None, limit: int | None = None) -> list[Candle]: ...
+    async def fetch_ohlcv(
+        self, symbol: str, timeframe: str, since: datetime | None = None, limit: int | None = None
+    ) -> list[Candle]: ...
     @abstractmethod
     async def fetch_ticker(self, symbol: str) -> Ticker: ...
     @abstractmethod
     async def check_health(self) -> ExchangeStatus: ...
+    @abstractmethod
     async def close(self) -> None: ...
