@@ -1,1 +1,203 @@
-@tailwind base; @tailwind components; @tailwind utilities; body{font-family:system-ui;margin:2rem;background:#0f172a;color:#e2e8f0} table{border-collapse:collapse} td{border:1px solid #334155;padding:.4rem}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.14), transparent 34rem), #0f172a;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 2rem;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 0.35rem;
+}
+
+h2 {
+  color: #f8fafc;
+  margin-top: 2rem;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.page-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.page-header p {
+  color: #94a3b8;
+  max-width: 62rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.kpi-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.exchange-grid {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.two-column {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: 1rem;
+}
+
+.card, .panel, .state-message {
+  background: rgba(15, 23, 42, 0.74);
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  box-shadow: 0 18px 55px rgba(2, 6, 23, 0.22);
+  padding: 1rem;
+}
+
+.kpi-card span, .kpi-card small, .exchange-card small, .event-list small {
+  color: #94a3b8;
+}
+
+.kpi-card strong {
+  display: block;
+  font-size: 2rem;
+  margin: 0.3rem 0;
+}
+
+.exchange-card > div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exchange-card p {
+  margin-bottom: 0.4rem;
+}
+
+.good {
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.warn {
+  border-color: rgba(245, 158, 11, 0.65);
+}
+
+.bad {
+  border-color: rgba(248, 113, 113, 0.65);
+}
+
+.pill {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 999px;
+  color: #e2e8f0;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  padding: 0.28rem 0.6rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill.good {
+  background: rgba(22, 101, 52, 0.4);
+  color: #bbf7d0;
+}
+
+.pill.warn {
+  background: rgba(146, 64, 14, 0.42);
+  color: #fed7aa;
+}
+
+.pill.bad {
+  background: rgba(127, 29, 29, 0.44);
+  color: #fecaca;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border-bottom: 1px solid #334155;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.event-list {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.event-list li {
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.8rem;
+}
+
+.skeleton {
+  color: transparent;
+  min-height: 5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton::after {
+  animation: shimmer 1.1s infinite;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.18), transparent);
+  content: '';
+  inset: 0;
+  position: absolute;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+@media (max-width: 680px) {
+  main {
+    padding: 1rem;
+  }
+
+  .page-header {
+    display: block;
+  }
+}
