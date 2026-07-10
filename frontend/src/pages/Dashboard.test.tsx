@@ -1,5 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { beforeEach, expect, test, vi } from 'vitest';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import App from '../App';
 
 const overview = {
@@ -33,6 +33,10 @@ const overview = {
 beforeEach(() => {
   vi.restoreAllMocks();
   history.pushState(null, '', '/');
+});
+
+afterEach(() => {
+  cleanup();
 });
 
 test('dashboard loading and empty state', async () => {
