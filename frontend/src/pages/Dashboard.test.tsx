@@ -55,7 +55,8 @@ test('universe rendering', async () => {
 
   render(<App />);
 
-  await screen.findByText('BTC/USD');
+  const bitcoinCells = await screen.findAllByText('BTC/USD');
+  expect(bitcoinCells.length).toBeGreaterThan(0);
 });
 
 test('api error state', async () => {
