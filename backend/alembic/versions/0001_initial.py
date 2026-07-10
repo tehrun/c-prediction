@@ -55,7 +55,6 @@ def upgrade():
     )
     op.create_table(
         "candles",
-        sa.Column("id", sa.Integer(), primary_key=True),
         sa.Column("exchange_id", sa.Integer(), sa.ForeignKey("exchanges.id"), nullable=False),
         sa.Column("market_id", sa.Integer(), sa.ForeignKey("markets.id"), nullable=False),
         sa.Column("timeframe", sa.String(16), nullable=False),
@@ -67,7 +66,7 @@ def upgrade():
         sa.Column("volume", sa.Numeric(38, 18), nullable=False),
         sa.Column("trade_count", sa.Integer()),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
-        sa.UniqueConstraint("exchange_id", "market_id", "timeframe", "opened_at"),
+        sa.PrimaryKeyConstraint("exchange_id", "market_id", "timeframe", "opened_at"),
     )
     op.create_table(
         "data_quality_events",

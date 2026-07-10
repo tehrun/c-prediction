@@ -54,12 +54,10 @@ class Market(TimestampMixin, Base):
 
 class Candle(Base):
     __tablename__ = "candles"
-    __table_args__ = (UniqueConstraint("exchange_id", "market_id", "timeframe", "opened_at"),)
-    id: Mapped[int] = mapped_column(primary_key=True)
-    exchange_id: Mapped[int] = mapped_column(ForeignKey("exchanges.id"), index=True)
-    market_id: Mapped[int] = mapped_column(ForeignKey("markets.id"), index=True)
-    timeframe: Mapped[str] = mapped_column(String(16), index=True)
-    opened_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    exchange_id: Mapped[int] = mapped_column(ForeignKey("exchanges.id"), primary_key=True)
+    market_id: Mapped[int] = mapped_column(ForeignKey("markets.id"), primary_key=True)
+    timeframe: Mapped[str] = mapped_column(String(16), primary_key=True)
+    opened_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
     open: Mapped[Decimal] = mapped_column(Numeric(38, 18))
     high: Mapped[Decimal] = mapped_column(Numeric(38, 18))
     low: Mapped[Decimal] = mapped_column(Numeric(38, 18))
