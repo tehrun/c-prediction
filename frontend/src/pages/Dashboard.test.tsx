@@ -89,7 +89,7 @@ test('overview rendering', async () => {
 
   const bitcoinCells = await screen.findAllByText('BTC/USD');
   expect(bitcoinCells.length).toBeGreaterThan(0);
-  expect(screen.getByRole('heading', { name: 'CryptoPilot Overview' })).toBeInTheDocument();
+  expect(screen.getByText('Operational snapshot for configured markets, exchanges, ingestion, and data quality.')).toBeInTheDocument();
   expect(screen.getByText('2 configured')).toBeInTheDocument();
   expect(screen.getByText(/Missing candle detected/)).toBeInTheDocument();
 });
